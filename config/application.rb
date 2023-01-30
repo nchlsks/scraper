@@ -1,0 +1,16 @@
+require_relative 'boot'
+
+require 'uri'
+require 'net/http'
+require 'thor'
+require 'dotenv/load'
+require 'pstore'
+require 'csv'
+require 'pry'
+require 'logger'
+require 'json'
+
+# require_relative '../worker.rb'
+require_all 'model/**/**/*.rb'
+require_all 'lib/**/**/*.rb'
+require_all 'storage/**/**/*.rb'

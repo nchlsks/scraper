@@ -1,0 +1,10 @@
+# Ignore all logfiles and tempfiles.
+/log/*
+/cache/*
+
+# Extra files to ignore
+*.swp
+*~
+.DS_Store
+.idea/*
+.byebug_history
