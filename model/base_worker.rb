@@ -82,12 +82,16 @@ class BaseWorker < Base
   end
 
   def processing
-    around_timeout { yield }
+    if timeout.nil?
+      yield
+    else
+      around_timeout { yield }
+    end
   end
 
   def around_timeout
     Timeout::timeout(timeout) {
-      info("Run worker! PID: #{Process.pid}}")
+      info("Run worker! PID: #{Process.pid}")
       yield
     }
   rescue Timeout::Error

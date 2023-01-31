@@ -5,17 +5,19 @@ class Main < Thor
   option :file_path, type: :string, required: true
   option :timeout, type: :numeric
   option :allowed_retries, type: :numeric
+  option :num_threads, type: :numeric
 
   def crawler
     file_path = options[:file_path]
     allowed_retries = options[:allowed_retries]
     timeout = options[:timeout]
+    num_threads = options[:num_threads]
 
     processing
 
     worker = Worker.new(
       mode: :file,
-      num_threads: 10,
+      num_threads: num_threads,
       allowed_retries: allowed_retries,
       timeout: timeout
     )

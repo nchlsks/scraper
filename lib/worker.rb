@@ -6,7 +6,7 @@ class Worker < BaseWorker
     @mode            = mode
     @num_threads     = num_threads || 1
     @allowed_retries = allowed_retries || 3
-    @timeout         = timeout || 100
+    @timeout         = timeout
 
     super
   end
@@ -14,33 +14,30 @@ class Worker < BaseWorker
   def run(source:)
     processing {
       table = Provider.new(mode: mode, source: source).list
-      table.each do |uri|
+      table.each do |url|
         retry_count = 1
 
-        queue << [uri, retry_count]
+        queue << [url, retry_count]
       end
 
       run_threads {
         url, retry_count = queue.pop(non_block=true)
-        responce(url)
+        responce(url, retry_count)
       }
     }
   end
 
   def responce(url, retry_count=1)
+    return if report.has_key?(url) && retry_count > allowed_retries
+    
     site = Site.new(url: url)
-    return if report.has_value?(url) && retry_count == allowed_retries
-
     site.get_response
     site.save if site.success?
 
+    @semaphore.synchronize { report[url] = site.response&.code || :error }
     responce(url, retry_count + 1) if site.failed?
   ensure
     save_map(url)
-
-    @semaphore.synchronize { 
-      report[url] = site.response&.code || :error
-    }
   end
 
   def print_report
