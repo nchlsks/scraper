@@ -106,6 +106,8 @@ class BaseWorker < Base
           yield
         end
       rescue ThreadError
+      rescue => e
+        error("Error msg: #{e}")
       end
     end
 
