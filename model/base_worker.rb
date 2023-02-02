@@ -102,7 +102,9 @@ class BaseWorker < Base
   def run_threads
     num_threads.times do |i|
       threads << Thread.new do
-        yield
+        until queue.empty?
+          yield
+        end
       rescue ThreadError
       end
     end
