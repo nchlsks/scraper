@@ -1,12 +1,13 @@
 class Worker < BaseWorker
   attr_reader :report
-  attr_accessor :num_threads, :mode, :allowed_retries, :timeout
+  attr_accessor :num_threads, :mode, :allowed_retries, :timeout, :delay
 
-  def initialize(num_threads:, mode:, allowed_retries:, timeout:)
+  def initialize(num_threads:, mode:, allowed_retries:, timeout:, delay:)
     @mode            = mode
     @num_threads     = num_threads || 1
     @allowed_retries = allowed_retries || 3
     @timeout         = timeout
+    @delay           = delay
 
     super
   end
@@ -23,6 +24,7 @@ class Worker < BaseWorker
       run_threads {
         url, retry_count = queue.pop(non_block=true)
         responce(url, retry_count)
+        interval
       }
     }
   end

@@ -1,6 +1,8 @@
 ## General info
 This project is simple web scraper that takes a list of URLs and retrieves the HTML content of each page.
 
+![](/doc/render1675524398730.gif)
+
 ## Table of contents
 - [General info](#general-info)
 - [Table of contents](#table-of-contents)
@@ -57,12 +59,12 @@ List of crawler options:
 | `--timeout`         | Numeric   | No       |         | 100
 | `--allowed_retries` | Numeric   | No       | 3       | 3
 | `--num_threads`     | Numeric   | No       | 1       | 10
+| `--delay`           | Numeric   | No       |         | 0.5
 
 ### Run
 ```
 $ ruby ./main.rb crawler --file_path "list.csv" --timeout 100 --allowed_retries 3 --num_threads 10
 ```
-![](/doc/render1675524398730.gif)
 
 ### Log
 After running the crawler, let's use the `tail -f log/process.log` just for the sake of fun of seeing the process as they happen. And this is the output you should see at your terminal:

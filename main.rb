@@ -6,12 +6,14 @@ class Main < Thor
   option :timeout, type: :numeric
   option :allowed_retries, type: :numeric
   option :num_threads, type: :numeric
+  option :delay, type: :numeric
 
   def crawler
     file_path = options[:file_path]
     allowed_retries = options[:allowed_retries]
     timeout = options[:timeout]
     num_threads = options[:num_threads]
+    delay = options[:delay]
 
     processing
 
@@ -19,8 +21,10 @@ class Main < Thor
       mode: :file,
       num_threads: num_threads,
       allowed_retries: allowed_retries,
-      timeout: timeout
+      timeout: timeout,
+      delay: delay
     )
+
     worker.run(source: file_path)
   ensure
     worker.save_report

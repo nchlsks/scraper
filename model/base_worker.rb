@@ -123,4 +123,8 @@ class BaseWorker < Base
     cache = Cache.new('map')
     cache.read { |t| yield(t) }
   end
+
+  def interval
+    sleep(delay) if delay
+  end
 end
