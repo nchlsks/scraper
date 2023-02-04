@@ -1,7 +1,7 @@
 ## General info
 This project is simple web scraper that takes a list of URLs and retrieves the HTML content of each page.
 
-![](/doc/render1675524398730.gif)
+<img src="/doc/render1675524398730.gif?raw=true"/>
 
 ## Table of contents
 - [General info](#general-info)
