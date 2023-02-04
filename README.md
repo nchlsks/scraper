@@ -26,7 +26,7 @@ The scraper is implemented in ruby with minimal use of gems. Additional Gems:
   * pry (0.14.2)
   
 ## Setup
-To run this project, install it locally and run `bundle instal`:
+To run this project, install it locally and run `bundle install`:
 
 ```
 $ cd scraper
