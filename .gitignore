@@ -1,5 +1,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*
+/cache/*
 
 # Extra files to ignore
 *.swp
